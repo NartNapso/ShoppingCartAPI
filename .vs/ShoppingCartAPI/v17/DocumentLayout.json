@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|c:\\projects\\shoppingcartapi\\shoppingcartapi\\shoppingcartapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|solutionrelative:shoppingcartapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|c:\\projects\\shoppingcartapi\\shoppingcartapi\\shoppingcartapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|solutionrelative:shoppingcartapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|c:\\projects\\shoppingcartapi\\shoppingcartapi\\shoppingcartapi\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|solutionrelative:shoppingcartapi\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|c:\\projects\\shoppingcartapi\\shoppingcartapi\\shoppingcartapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D1B2E8-18D0-4F46-8CAC-9FCE89451EEE}|ShoppingCartAPI\\ShoppingCartAPI.csproj|solutionrelative:shoppingcartapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "ShoppingCartAPI\\appsettings.Development.json",
+              "ToolTip": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\appsettings.Development.json",
+              "RelativeToolTip": "ShoppingCartAPI\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-20T03:01:44.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "ShoppingCartAPI\\appsettings.json",
+              "ToolTip": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\appsettings.json",
+              "RelativeToolTip": "ShoppingCartAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-20T03:01:37.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "ShoppingCartAPI\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\Controllers\\CartController.cs",
+              "RelativeToolTip": "ShoppingCartAPI\\Controllers\\CartController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-19T13:24:30.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\Program.cs",
+              "RelativeDocumentMoniker": "ShoppingCartAPI\\Program.cs",
+              "ToolTip": "C:\\Projects\\ShoppingCartAPI\\ShoppingCartAPI\\ShoppingCartAPI\\Program.cs",
+              "RelativeToolTip": "ShoppingCartAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-18T12:09:26.714Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
