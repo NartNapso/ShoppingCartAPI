@@ -1,3 +1,4 @@
 .vs/
-*.vsidx
-*.vssscc
+bin/
+obj/
+Migrations/

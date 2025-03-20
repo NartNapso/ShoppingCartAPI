@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ShoppingCartAPI.Data;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShoppingCartAPI.Controllers
 {
@@ -8,58 +11,66 @@ namespace ShoppingCartAPI.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private static List<CartItem> _cart = new List<CartItem>();
+        private readonly ShoppingCartDbContext _context;
 
-        private static Dictionary<string, List<CartItem>> GetGroupedCart()
+        public CartController(ShoppingCartDbContext context)
         {
-            return _cart
-                .GroupBy(item => item.Category)
-                .ToDictionary(g => g.Key, g => g.ToList());
+            _context = context;
+        }
+
+        private async Task<Dictionary<string, List<CartItem>>> GetGroupedCartAsync()
+        {
+            var items = await _context.CartItems.ToListAsync();
+            return items.GroupBy(item => item.Category)
+                        .ToDictionary(g => g.Key, g => g.ToList());
         }
 
         [HttpGet]
-        public IActionResult GetCart()
+        public async Task<IActionResult> GetCart()
         {
-            return Ok(GetGroupedCart());
+            var cart = await GetGroupedCartAsync();
+            return Ok(cart);
         }
 
         [HttpPost]
-        public IActionResult AddToCart([FromBody] CartItem item)
+        public async Task<IActionResult> AddToCart([FromBody] CartItem item)
         {
             if (item == null || string.IsNullOrWhiteSpace(item.Name) || string.IsNullOrWhiteSpace(item.Category))
             {
                 return BadRequest(new { error = "Invalid item: Name and Category are required." });
             }
 
-            item.Id = _cart.Count > 0 ? _cart.Max(i => i.Id) + 1 : 1;
-            _cart.Add(item);
+            var newItem = new CartItem
+            {
+                Name = item.Name,
+                Quantity = item.Quantity,
+                Category = item.Category
+            };
 
-            return Ok(GetGroupedCart());
+            _context.CartItems.Add(newItem);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.CartItems.ToListAsync());
         }
 
         [HttpDelete("{id}")]
-        public IActionResult RemoveFromCart(int id)
+        public async Task<IActionResult> RemoveFromCart(int id)
         {
-            var item = _cart.FirstOrDefault(i => i.Id == id);
+            var item = await _context.CartItems.FindAsync(id);
             if (item == null) return NotFound();
 
-            _cart.Remove(item);
-            return Ok(GetGroupedCart());
+            _context.CartItems.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return Ok(await GetGroupedCartAsync());
         }
 
         [HttpDelete]
-        public IActionResult ClearCart()
+        public async Task<IActionResult> ClearCart()
         {
-            _cart.Clear();
+            _context.CartItems.RemoveRange(_context.CartItems);
+            await _context.SaveChangesAsync();
             return Ok(new { message = "Cart cleared successfully!" });
         }
-    }
-
-    public class CartItem
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
-        public string Category { get; set; }
     }
 }
