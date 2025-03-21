@@ -1,0 +1,14 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.dbmdl
+*.log
+*.cache
+*.vscode/
+*.env
+*.DS_Store
+*.zip
+*.publish/
+*.deploy-check/
