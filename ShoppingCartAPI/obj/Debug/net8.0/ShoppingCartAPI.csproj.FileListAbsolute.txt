@@ -1,5 +1,6 @@
 C:\Projects\ShoppingCartAPI\ShoppingCartAPI\ShoppingCartAPI\bin\Debug\net8.0\appsettings.Development.json
 C:\Projects\ShoppingCartAPI\ShoppingCartAPI\ShoppingCartAPI\bin\Debug\net8.0\appsettings.json
+C:\Projects\ShoppingCartAPI\ShoppingCartAPI\ShoppingCartAPI\bin\Debug\net8.0\task-definition.json
 C:\Projects\ShoppingCartAPI\ShoppingCartAPI\ShoppingCartAPI\bin\Debug\net8.0\ShoppingCartAPI.staticwebassets.endpoints.json
 C:\Projects\ShoppingCartAPI\ShoppingCartAPI\ShoppingCartAPI\bin\Debug\net8.0\ShoppingCartAPI.exe
 C:\Projects\ShoppingCartAPI\ShoppingCartAPI\ShoppingCartAPI\bin\Debug\net8.0\ShoppingCartAPI.deps.json
