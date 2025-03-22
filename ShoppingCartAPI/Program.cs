@@ -1,30 +1,42 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Events;
 using ShoppingCartAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var allowedOrigins = (builder.Configuration["AllowedOrigins"] ?? "")
-    .Split(',', StringSplitOptions.RemoveEmptyEntries)
-    .Select(origin => origin.Trim())
-    .ToArray();
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.ApplicationInsights(
+        builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"],
+        TelemetryConverter.Traces)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+var baseConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dbUser = builder.Configuration["DB_USER"];
+var dbPassword = builder.Configuration["DB_PASSWORD"];
+var fullConnectionString = $"{baseConnectionString};User ID={dbUser};Password={dbPassword};";
 
 builder.Services.AddDbContext<ShoppingCartDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(fullConnectionString));
 
+var allowedOrigins = builder.Configuration["CORS_ALLOWED_ORIGINS"]?.Split(',') ?? Array.Empty<string>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("RestrictedOrigins", policy =>
-    {
         policy.WithOrigins(allowedOrigins)
               .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
-    });
+              .AllowAnyHeader());
 });
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
 
@@ -43,6 +55,8 @@ app.Urls.Add($"http://0.0.0.0:{port}");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Application Is Running!");
+
+Log.Information("ShoppingCart .NET backend started successfully!");
 
 app.Run();

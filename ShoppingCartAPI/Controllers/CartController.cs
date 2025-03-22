@@ -4,6 +4,7 @@ using ShoppingCartAPI.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace ShoppingCartAPI.Controllers
 {
@@ -28,8 +29,17 @@ namespace ShoppingCartAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCart()
         {
-            var cart = await GetGroupedCartAsync();
-            return Ok(cart);
+            try
+            {
+                var cart = await GetGroupedCartAsync();
+                Log.Information("Retrieved cart with {ItemCount} items", cart.Sum(g => g.Value.Count));
+                return Ok(cart);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to retrieve cart.");
+                return StatusCode(500, "An error occurred while retrieving the cart.");
+            }
         }
 
         [HttpPost]
@@ -37,40 +47,72 @@ namespace ShoppingCartAPI.Controllers
         {
             if (item == null || string.IsNullOrWhiteSpace(item.Name) || string.IsNullOrWhiteSpace(item.Category))
             {
+                Log.Warning("Invalid item submission.");
                 return BadRequest(new { error = "Invalid item: Name and Category are required." });
             }
 
-            var newItem = new CartItem
+            try
             {
-                Name = item.Name,
-                Quantity = item.Quantity,
-                Category = item.Category
-            };
+                var newItem = new CartItem
+                {
+                    Name = item.Name,
+                    Quantity = item.Quantity,
+                    Category = item.Category
+                };
 
-            _context.CartItems.Add(newItem);
-            await _context.SaveChangesAsync();
+                _context.CartItems.Add(newItem);
+                await _context.SaveChangesAsync();
 
-            return Ok(await _context.CartItems.ToListAsync());
+                Log.Information("Added item to cart: {Item}", newItem.Name);
+                return Ok(await _context.CartItems.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to add item to cart.");
+                return StatusCode(500, "An error occurred while adding the item.");
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveFromCart(int id)
         {
-            var item = await _context.CartItems.FindAsync(id);
-            if (item == null) return NotFound();
+            try
+            {
+                var item = await _context.CartItems.FindAsync(id);
+                if (item == null)
+                {
+                    Log.Warning("Tried to delete non-existing item with ID {Id}", id);
+                    return NotFound();
+                }
 
-            _context.CartItems.Remove(item);
-            await _context.SaveChangesAsync();
+                _context.CartItems.Remove(item);
+                await _context.SaveChangesAsync();
 
-            return Ok(await GetGroupedCartAsync());
+                Log.Information("Removed item with ID {Id}", id);
+                return Ok(await GetGroupedCartAsync());
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to remove item from cart.");
+                return StatusCode(500, "An error occurred while removing the item.");
+            }
         }
 
         [HttpDelete]
         public async Task<IActionResult> ClearCart()
         {
-            _context.CartItems.RemoveRange(_context.CartItems);
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "Cart cleared successfully!" });
+            try
+            {
+                _context.CartItems.RemoveRange(_context.CartItems);
+                await _context.SaveChangesAsync();
+                Log.Information("Cleared the cart.");
+                return Ok(new { message = "Cart cleared successfully!" });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to clear cart.");
+                return StatusCode(500, "An error occurred while clearing the cart.");
+            }
         }
     }
 }
